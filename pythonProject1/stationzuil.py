@@ -18,4 +18,4 @@ while True:  # zo lang dit klopt
     # alleen daarvoor is waarschijnlijk een database handig
     print('thanks for leaving a massage and have a nice travel')
     time.sleep(2)  # dit vertraagt het moment van de print functie naar de continue functie
-    continue
+
