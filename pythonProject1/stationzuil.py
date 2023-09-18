@@ -1,6 +1,6 @@
 import time
 import datetime
-
+import random
 
 while True:
     message = str(input("would you like to leave a message. if so please type yes "))
@@ -17,7 +17,7 @@ while True:
         # print(user)
     else:
         user[0] = str(name)
-        print(user)
+        # print(user)
     while True:
         true_message = str(input('than please leave a massage of max 140 letters '))
         if len(true_message) > 140:
@@ -35,8 +35,13 @@ while True:
 
     now = datetime.datetime.now()
     cdt = [0]
-    cdt[0] = str(now.strftime("%H:%M:%S %Y:%m:%d"))
+    cdt[0] = str(now.strftime("%D %T"))
     print(cdt)
+
+    stations = ['amersfoort', 'schorthorst','utrecht']
+    rstation = ['hihi']
+    rstation[0] = str(random.choice(stations))
+    print(rstation)
 
     continue
 
