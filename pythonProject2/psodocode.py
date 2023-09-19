@@ -7,11 +7,3 @@
 # 18-9 import datetime voor de library en dan de now functie zorgt ervoor dat hij gaat kijken naar de datum en tijd op dat
 # moment. alleen kan je er dan nog niet bij daar voor word dan now strife gebruikt waar bij hij dan string symbools
 # herkent en dan good weet intedelen waardoor de waardes van de funcite now goed omgezet word naar de jouw gekozen volgorden
-import datetime
-
-now = datetime.datetime.now()
-print(now.strftime("%Y %m %d  %H %M %S"))
-print(now)
-st = open("C:\\Users\dunca\PycharmProjects\pythonProject2station.txt", "r")
-
-print(st.read)
