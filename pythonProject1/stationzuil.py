@@ -15,10 +15,8 @@ while True:
     user = [name]
     if name in nee:
         user[0] = "anonymous"
-        # print(user)
     else:
         user[0] = str(name)
-        # print(user)
     while True:
         time.sleep(1)
         true_message = str(input('than please leave a massage of max 140 letters '))
@@ -33,6 +31,7 @@ while True:
             print('thanks for leaving a massage and have a nice travel')
             time.sleep(2)
         break
+
     smassage = ["placeholder"]
     smassage[0] = str(true_message)
 
@@ -48,16 +47,12 @@ while True:
     wordlist = content.split()
     station = [0]
     station[0] = str(random.choice(wordlist))
-    print(station)
-    print(name)
-    print(true_message)
+
     outfile = open("C:\\Users\dunca\PycharmProjects\gev stationzeill.txt", 'a')
-    outfile.write(str(name))
+    outfile.write(str(user))
     outfile.write(str(smassage))
     outfile.write(str(cdt))
     outfile.write(str(station) + '\n')
     outfile.close()
     continue
-
-
 
