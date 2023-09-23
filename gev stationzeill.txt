@@ -1,4 +1,0 @@
-['anonymous']['hello']['09/19/23 14:21:40']['Roermond']
-['hih']['hi']['09/19/23 14:21:50']['Zutphen']
-['anonymous']['firsttry']['09/20/23 08:40:06']['Vlissingen']
-['duncan']['finaltry']['09/20/23 08:40:34']['Haag']
