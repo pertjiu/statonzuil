@@ -40,7 +40,7 @@ while True:
     cdt[0] = str(now.strftime("%D %T"))
     # print(cdt)
 
-    infile = open("C:\\Users\dunca\PycharmProjects\stations.txt", "r")
+    infile = open("stations.txt", "r")
     content = infile.read()
     infile.close()
 
@@ -48,12 +48,10 @@ while True:
     station = [0]
     station[0] = str(random.choice(wordlist))
 
-    outfile = open("C:\\Users\dunca\PycharmProjects\gev stationzeill.txt", 'a')
+    outfile = open("gev stationzeill.txt", 'a')
     outfile.write(str(user))
     outfile.write(str(smassage))
     outfile.write(str(cdt))
     outfile.write(str(station) + '\n')
     outfile.close()
     continue
-
-# helle htere
