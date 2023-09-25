@@ -48,7 +48,7 @@ while True:
     station = [0]
     station[0] = str(random.choice(wordlist))
 
-    outfile = open("gev stationzeill.txt", 'a')
+    outfile = open("gev stationzeill.txt", "a")
     outfile.write(str(user))
     outfile.write(str(smassage))
     outfile.write(str(cdt))
