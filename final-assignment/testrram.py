@@ -29,32 +29,32 @@ def aantal_kluizen_vrij():
 
 
 def nieuwe_kluis():
-    """'infile = open('kluisgegeven.txt', 'r')
-    line = infile.readlines()
-    kluisregels = len(infile.readlines())
-    vrij = 12 - kluisregels
-    for i in line:
-        if i == vrij and vrij > 0:
-            line.append(str(random))'"""
+    kluizen = [i for i in range(1, 13)]
+    # print(kluizen)
+    with open('kluisgegeven.txt', 'r') as file:
+        # content = file.readlines()
+        for line in file:
+            kluis = int(line.strip().split(';')[0])
+            if kluis in kluizen:
+                kluizen.remove(kluis)
+    # print(kluizen)
+    if kluizen:
+        beschikbaar = kluizen[0]
+        # print(beschikbaar)
+    else:
+        return int(-2)
+
+    ww = input('wachtword van minimaal 4 tekens ')
+    if len(ww) < 4 or ";" in ww:
+        return int(-1)
+    file.close()
+
+    with open('kluisgegeven.txt', 'a') as file:
+        gegevens = f'{beschikbaar};{ww}' + '\n'
+        file.write(gegevens)
+        return beschikbaar
 
 
-    """
-    Indien er nog kluizen vrij zijn, moet de gebruiker de mogelijkheid krijgen
-    om een kluiscode in te voeren. Deze kluiscode moet uit minimaal 4 tekens bestaan,
-    en de puntkomma (';') mag er niet in voorkomen.
-
-    Als de kluiscode ongeldig is, is de returnwaarde van deze functie -1.
-    Als er geen vrije kluizen meer zijn, is de returnwaarde van deze functie -2.
-
-    Als er nog vrij kluizen zijn, en de kluiscode is geldig, dan koppelt deze functie
-    de kluiscode aan een nog beschikbare kluis, en schrijft deze combinatie weg naar
-    een tekstbestand. De returnwaarde van de functie is dan gelijk aan het toegekende
-    kluisnummer.
-
-    Returns:
-        int: het toegekende kluisnummer of foutcode -1 of -2
-    """
-    return
 
 
 def kluis_openen():
@@ -72,21 +72,13 @@ def kluis_openen():
 
     for check in klnr:
         if check[0] == user and check[1] == ww:
-           return print(check[0] == user and check[1] == ww)  # hier return true
+            return True  # hier return true
 
-    for check2 in klnr:
-        if check2[0] != user and check2[1] != ww:
-            return print(check2[0] == user and check2[1] == ww)
+    for check in klnr:
+        if check[0] != user and check[1] != ww:
+            return False
 
 
-    """
-    Laat de gebruiker een kluisnummer invoeren, en direct daarna de bijbehorende
-    kluiscode. Indien deze combinatie voorkomt in het tekstbestand met de kluizen
-    die in gebruik zijn, is het resultaat van de functie True, anders False.
-
-    Returns:
-        bool: True als de ingevoerde combinatie correct is, anders False
-    """
 
 
 
@@ -112,7 +104,7 @@ def development_code():
 
 
 def module_runner():
-    #development_code()  # Comment deze regel om je 'development_code' uit te schakelen
+    # development_code()  # Comment deze regel om je 'development_code' uit te schakelen
     __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
 
 hello = int((input(
@@ -120,7 +112,7 @@ hello = int((input(
         '2 ik wil een nieuwe kluis \n'
         '3 ik wil even iets uit mijn kluis halen \n'
         '4 ik geef mijn kluis terug \n')))
-if hello <= 1:
+if hello == 1:
     aantal_kluizen_vrij()
 elif hello == 2:
     nieuwe_kluis()

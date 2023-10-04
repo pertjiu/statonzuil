@@ -4,27 +4,44 @@ import random
 # textcontent = content.split('\n')
 # infile.close()
 
-user = str(input('kluisnummer '))
-ww = str(input('wachtwoord '))
+kluizen  = [i for i in range(1, 13)]
+print(kluizen)
+with open('kluisgegeven.txt', 'r') as file:
+   # content = file.readlines()
+    for line in file:
+        kluis = int(line.strip().split(';')[0])
+        if kluis in kluizen:
+            kluizen.remove(kluis)
+#print(kluizen)
+if kluizen:
+    beschikbaar = kluizen[0]
+    print(beschikbaar)
+else:
+    ''''return'''''
+    print(-2)
 
 
-with open("kluisgegeven.txt", "r") as file:
-    content = file.readlines()
+ww = input('wachtword van minimaal 4 tekens ')
+if len(ww) < 4 or ";" in ww:
+    ''''return'''
+    print(-1)
+file.close()
 
-klnr = []
-for line in content:
-    klnr.append(line.strip().split(';'))
+with open('kluisgegeven.txt', 'a') as file:
+    gegevens = f'{beschikbaar};{ww}' + '\n'
+    file.write(gegevens)
 
 
-print(klnr)
 
-for check in klnr:
-    if check[0] == user and check[1] == ww:
-        print(check[0] == user and check[1] == ww) # hier return true
 
-for check2 in klnr:
-    if check2[0] == user and check2[1] == ww:
-      return print(check2[0] != user and check2[1] != ww)
+
+
+
+
+
+
+
+
 
 
 
