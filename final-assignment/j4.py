@@ -1,3 +1,4 @@
+# TEST
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -19,90 +20,64 @@ Voeg commentaar toe om je code toe te lichten.
 Lever je werk in op Canvas als alle tests slagen.
 """
 
+def zeg_hallo(naam: str):
+    """
+    Deze functie gaat zometeen gedag zeggen. Geef je naam.
+    :param naam: String
+    :return: None
+    """
+    print(f"Hallo, {naam}!")
+
 
 def aantal_kluizen_vrij():
-    """
-    hier word gecheckt of er kluizen vrij zijn
-    eerst word het txt bestand geopend onder de naam file
-    daarna moet de lengte van txt bestand genoteerd worden
-    en vervolgens moet die lengte gebruikt worden in combinatie met
-    de 12 aangezien de eis was dat er 12 kluizen moesten zijn
-    dus om dan te checken hoeveel kluizen er zijn moet je 12 min de lengte doen
-    en daarna word het antwoord van de som gereturnd
-    """
-    with open('kluisgegeven.txt', 'r') as file:
-        kluisregels = len(file.readlines())
-        vrij = 12 - kluisregels
-    print(f'er zijn {vrij} kluizen beschikbaar')
+    zeg_hallo()
+    infile = open('kluisgegeven.txt', 'r')
+    kluisregels = len(infile.readlines())
+    vrij = 12 - kluisregels
     return vrij
 
 
 def nieuwe_kluis():
-    """
-    er moet een nieuwekluis worden toegekent hiervoor moest een lijst aangemaakt worden met de nummers van de kluizen
-    dan is het txt bestand weer gehopend in een nieuwe lijst en zijn de \n verwijder door strip en de ; gesplit door
-    split vervolgens check je of de eerste input van de nieuwe lijst overeen komt met de gegevens in de lijst met de
-    kluisnummers klopt did dan verwijder de gegevens die gezien worden in de lijst van het txt bestand uit de
-    kluizennumers bestand dan als de lijst van de kluizennumers niet leeg is ga verder ander moet er -2 worden gereturnd
-    vraag daarna het wachtword waarbij er minimaal 4 tekens worden gebrukt maar er mag geen ; gebruikt te worden
-    als deze eisen niet worden voldaan dus er zijn minder tekens of ; dan moet -1 worden gereturnd
-    klopt alles tot nu toe open dan het txt bestand weer maar nu in de append modus en voeg de kluiscode samen met het
-    wachtwoord toe en return het toegekende kluisnummer
-    """
-    kluizen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    kluizen = [i for i in range(1, 13)]
     with open('kluisgegeven.txt', 'r') as file:
         for line in file:
-            kluislijst = int(line.strip().split(';')[0])
-            if kluislijst in kluizen:
-                kluizen.remove(kluislijst)
+            kluis = int(line.strip().split(';')[0])
+            if kluis in kluizen:
+                kluizen.remove(kluis)
     if kluizen:
         beschikbaar = kluizen[0]
     else:
-        print('er zijn geen kluizen beschikbaar')
-        return -2
+        return int(-2)
 
-    ww = input('wachtwoord van minimaal 4 tekens ')
+    ww = input('wachtword van minimaal 4 tekens ')
     if len(ww) < 4 or ";" in ww:
-        print('dit wachtwoord is ongeldig')
-        return -1
+        return int(-1)
 
     with open('kluisgegeven.txt', 'a') as file:
-        kluisgegevens = f'{beschikbaar};{ww}' + '\n'
-        file.write(kluisgegevens)
-        print('jouw kluisnummer is', beschikbaar)
+        gegevens = f'{beschikbaar};{ww}' + '\n'
+        file.write(gegevens)
         return beschikbaar
 
 
 
 
 def kluis_openen():
-    """
-    hier is de bedoeling dat het kluisje word geopend daar voor moet je een input gelijkstellen aan de gegevens
-    txt bestand ofte wel het begint met het vragen naar de de input voor zowel het kluisnummer als het wachtwoord
-    dan moet het txt bestand weer geopend worden als read en weer een lijst van gemaakt worden
-    dan maak weer een lege lijst aan en plaats de lijst van het txt bestand daar in zonder de \n en de ; aanwezig dit
-    word gedaan door een for loop dan check of de input van de kluisnummer en wachtwoord  gelijk staan aan wat er in de
-    totaale lijst staan dit is gedaan door een for loop als het antwoord klopt word er True gereturnd ander False
-    """
-    user = str(input('kluisnummer '))
-    ww = str(input('wachtwoord '))
+    f = open('kluisgegeven.txt', 'r')
+    content = f.readlines()
+    f.close()
+    juistecode = False
+    kluisnummer = (input("Voer je kluisnummer in:"))
+    kluiscode = (input("Voer je kluiscode in:"))
 
-    with open("kluisgegeven.txt", "r") as file:
-        content = file.readlines()
-
-    kluisnummer = []
     for line in content:
-        kluisnummer.append(line.strip().split(';'))
-
-    for check in kluisnummer:
-        if check[0] == user and check[1] == ww:
-            print('je kluis is geopend')
-            return True
-    print('niet geldig')
-    return False
-
-
-
+        if (str(kluisnummer)) + ";" + (str(kluiscode)) + "\n" == line:
+            juistecode = True
+    if juistecode == 1:
+        print("Kluis is geopend")
+    else:
+        print("Je hebt verkeerde code ingevoerd")
+        return False
+    return True
 
 
 
@@ -112,34 +87,45 @@ def kluis_openen():
 
 
 def kluis_teruggeven():
+    """
+    Laat de gebruiker een kluisnummer invoeren, en direct daarna de bijbehorende
+    kluiscode. Indien deze combinatie voorkomt in het tekstbestand met de kluizen
+    die in gebruik zijn, moet deze combinatie/regel uit het tekstbestand verwijderd
+    worden.
+
+    Als het lukt om de combinatie te vinden en te verwijderen, is het resultaat
+    van de functie True, anders False.
+
+    Returns:
+        bool: True als er een kluiscombinatie verwijderd werd, anders False
+    """
     return
 
 
+hello = int((input(
+        '1 ik wil weten hoeveel kluizen nog vrij zijn \n'
+        '2 ik wil een nieuwe kluis \n'
+        '3 ik wil even iets uit mijn kluis halen \n'
+        '4 ik geef mijn kluis terug \n')))
+if hello == 1:
+    aantal_kluizen_vrij()
+elif hello == 2:
+    nieuwe_kluis()
+elif hello == 3:
+    kluis_openen()
+elif hello == 4:
+    pass
+else:
+    print("ERROR")
 
 def development_code():
-    while True:
-        usermenu = int((input(
-            '1 ik wil weten hoeveel kluizen er nog vrij zijn \n'
-            '2 ik wil een nieuwe kluis \n'
-            '3 ik wil iets uit mijn kluis haalen \n'
-            '4 ik geef mijn kluis terug \n'
-            '5 stoppen \n')))
-        if usermenu == 1:
-            aantal_kluizen_vrij()
-        elif usermenu == 2:
-            nieuwe_kluis()
-        elif usermenu == 3:
-            kluis_openen()
-        elif usermenu == 4:
-            pass
-        elif usermenu == 5:
-            break
-        else:
-            print("ERROR")
+    # Breid deze code uit om het keuzemenu te realiseren:
+    print("1: Ik wil weten hoeveel kluizen nog vrij zijn")
+
 
 def module_runner():
     # development_code()  # Comment deze regel om je 'development_code' uit te schakelen
-     __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
+    __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
 
 """
 ==========================[ HU TESTRAAMWERK ]================================
