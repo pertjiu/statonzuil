@@ -20,7 +20,7 @@ Haarlem
 Helmond
 Hoorn
 Heerlen
-Den Bosch
+Den_Bosch
 Hilversum
 Leiden
 Lelystad

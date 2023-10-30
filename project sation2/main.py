@@ -11,7 +11,7 @@ while True:
         continue
     else:
         time.sleep(1)
-        name = str(input('what is your name? if the name that is chosen is N it will become anonymous '))
+        name = str(input(f"what is your name? if you give us the name N/n than it will become anonymous "))
     nee = ('n', 'N')
     # user = [name]
     if name in nee:
@@ -38,6 +38,8 @@ while True:
 
     now = datetime.datetime.now()
     cdt = str(now.strftime("%D %T"))
+    datum = str(now.strftime("%D"))
+    tijd = str(now.strftime("%T"))
     # print(cdt)
 
     infile = open("stations.txt", "r")
@@ -48,6 +50,7 @@ while True:
     station = str(random.choice(wordlist))
 
     outfile = open("gev stationzeill.txt", "a")
-    hello = f"{name} {true_message} {cdt} {station}" + '\n'
+    hello = f"-{name} {station} {true_message} {cdt}-" + '\n'
     outfile.write(hello)
     outfile.close()
+
