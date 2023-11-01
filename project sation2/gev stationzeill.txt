@@ -1,7 +1,0 @@
-['no']['hello']['09/25/23 11:49:36']['Roosendaal']
-['no']['second line']['09/25/23 11:49:56']['Alkmaar']
-['anonymous']['liilio;ooilo;iloi']['10/02/23 09:25:23']['Helmond']
-['anonymous']['hdhdh']['10/02/23 09:26:22']['Nijmegen']
-helloo anonymous hi 10/02/23 09:36:52 Vlissingen
-hi hui 10/02/23 09:38:22 Bosch
-anonymous no 10/02/23 09:39:03 Deventer

@@ -7,7 +7,6 @@ while True:
     message = str(input("would you like to leave a message. if so please type yes "))
     if message != str('yes'):
         print('have a nice day')
-        time.sleep(3)
         continue
     else:
         time.sleep(1)
@@ -49,8 +48,10 @@ while True:
     wordlist = content.split()
     station = str(random.choice(wordlist))
 
+    stationberichtinfo = [f"{name}, {station}, {true_message}, {datum}, {tijd}"]
+
     outfile = open("gev stationzeill.txt", "a")
-    hello = f"-{name} {station} {true_message} {cdt}-" + '\n'
+    hello = f"-{name}--{station}--{true_message}--{datum}--{tijd}-" + '\n'
     outfile.write(hello)
     outfile.close()
 

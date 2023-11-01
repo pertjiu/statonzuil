@@ -8,39 +8,47 @@ pattern = r'-(.*?)-'
 sentences = re.findall(pattern, text)
 
 checklist = []
-for sentence in sentences:
-    checklist = sentences
-    print(sentence)
-
-print(checklist)
+checklist.append(sentences)
 
 
-eerste_zin = True
+
+
+
+
 
 stationberichtinfo = []
+
+stationberichtinfo.append(sentences)
+
+
+flattened_list = [item for sublist in stationberichtinfo for item in sublist]
+
 dbgoedkeuring = []
 moderatorname = input('name ')
 moderatoremail = input('email ')
-for check in checklist:
-    goedkeuring = input(f"please type Y/N if this is acceptable: {check} ")
-    if goedkeuring == 'Y':
-        now = datetime.datetime.now()
-        beordeelingD = str(now.strftime("%D"))
-        beordeelingT = str(now.strftime("%T"))
-        dbgoedkeuring.append(f"{moderatorname}, {moderatoremail}")
-        stationberichtinfo.append(f'{beordeelingT}, {beordeelingD}, {goedkeuring}')
-        print(dbgoedkeuring)
-    elif goedkeuring != 'Y':
-        now = datetime.datetime.now()
-        beordeelingD = str(now.strftime("%D"))
-        beordeelingT = str(now.strftime("%T"))
-        dbgoedkeuring.append(f"{moderatorname}, {moderatoremail}")
-        stationberichtinfo.append(f'{beordeelingT}, {beordeelingD}, {goedkeuring}')
-        print(dbgoedkeuring)
 
+goedkeuring = input(f"please type Y/N if this is acceptable: {checklist} ")
+if goedkeuring == 'Y':
+    now = datetime.datetime.now()
+    beordeelingD = str(now.strftime("%D"))
+    beordeelingT = str(now.strftime("%T"))
+    dbgoedkeuring.append(f"{moderatorname}, {moderatoremail}")
+    flattened_list.append(f'{beordeelingT}, {beordeelingD}, {goedkeuring}')
+    print(dbgoedkeuring)
+    print(flattened_list)
+elif goedkeuring != 'Y':
+    now = datetime.datetime.now()
+    beordeelingD = str(now.strftime("%D"))
+    beordeelingT = str(now.strftime("%T"))
+    dbgoedkeuring.append(f"{moderatorname}, {moderatoremail}")
+    flattened_list.append(f'{beordeelingT}, {beordeelingD}, {goedkeuring}')
+    print(dbgoedkeuring)
+    print(flattened_list)
 
+result = [', '.join(flattened_list)]
 
-
+# Print the result
+print(result)
 
 
 
@@ -57,14 +65,17 @@ conn = psycopg2.connect(
 cursor = conn.cursor()
 
 for record in dbgoedkeuring:
-    query = """ 
-                INSERT INTO moderator (naam, E_mail) 
+    query = """
+                INSERT INTO moderator (naam, E_mail)
                 VALUES (%s, %s);"""
     cursor.execute(query, tuple(record.split(', ')))
 
     conn.commit()
 
-for record in stationberichtinfo:
+
+
+
+for record in result:
     query = """INSERT INTO bericht(naam, plaats, bericht, datum, tijd, gktijd, gkdatum, goedkeuring)
                 VALUES( %s, %s, %s, %s, %s, %s, %s, %s);"""
     cursor.execute(query, tuple(record.split(', ')))
@@ -72,5 +83,5 @@ for record in stationberichtinfo:
     conn.commit()
 
 conn.close()
-
-
+with open('gev stationzeill.txt', 'w') as file:
+    file.write('')
