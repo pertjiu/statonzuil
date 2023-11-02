@@ -26,6 +26,10 @@ while True:
             print("please type it again")
             time.sleep(2)
             continue
+        elif true_message == '-':
+            print("please type it again the - symbole is not aloud")
+            time.sleep(2)
+            continue
         else:
             time.sleep(1)
             print('thanks for leaving a massage and have a nice travel')
@@ -51,7 +55,6 @@ while True:
     stationberichtinfo = [f"{name}, {station}, {true_message}, {datum}, {tijd}"]
 
     outfile = open("gev stationzeill.txt", "a")
-    hello = f"-{name}--{station}--{true_message}--{datum}--{tijd}-" + '\n'
+    hello = f"{name}--{station}--{true_message}--{datum}--{tijd}|" + '\n'
     outfile.write(hello)
     outfile.close()
-
