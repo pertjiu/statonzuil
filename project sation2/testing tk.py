@@ -252,5 +252,5 @@ root.grid_columnconfigure(0, weight=1)
 
 root.mainloop()
 
-
+#netter maken nog
 
