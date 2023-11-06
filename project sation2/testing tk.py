@@ -9,6 +9,73 @@ from PIL import Image, ImageTk
 icon_directory = r"C:\Users\dunca\PycharmProjects\final-assignment\icons"
 api_key = "e8c04b8fe28cf2051ef9eb217735e859"
 
+
+
+# Function to get station info
+def get_station_info():
+    with open("stations.txt", "r") as file:
+        content = file.read()
+        wordlist = content.split()
+        station = random.choice(wordlist)
+
+    conn = psycopg2.connect(
+        host="20.77.182.19",
+        database='stationszuil',
+        user='postgres',
+        password="FD1ns81g02!!"
+    )
+    cursor = conn.cursor()
+
+    query = "SELECT * FROM station_service WHERE station_city = %s;"
+    cursor.execute(query, (station,))
+    stationinfo = cursor.fetchall()
+
+    facilities = []
+
+    facility_names = {
+        True: "available",
+        False: "not available",
+    }
+
+    for serve in stationinfo:
+        facility_2 = facility_names.get(serve[2], "unknown")
+        facility_3 = facility_names.get(serve[3], "unknown")
+        facility_4 = facility_names.get(serve[4], "unknown")
+        facility_5 = facility_names.get(serve[5], "unknown")
+
+        if facility_2 == "not available":
+            pass
+        else:
+            facilities.append("OV-BIKE")
+        if facility_3 == "not available":
+            pass
+        else:
+            facilities.append("ELEVATOR")
+        if facility_4 == "not available":
+            pass
+        else:
+            facilities.append("TOILETS")
+        if facility_5 == "not available":
+            pass
+        else:
+            facilities.append("PARK_AND_RIDE")
+
+    helpt = []
+
+    if facilities:
+        st = f"{station} {serve[1]}:"
+        helpt = [facility for facility in facilities]
+        helpt_str = ', '.join(helpt)
+        helpt_str = helpt_str.replace("[", "").replace("]", "").replace("'", "").replace(",", "")
+
+        return f"{st}\n{helpt_str}"
+
+
+    conn.close()
+
+# At the beginning of your program, to initialize the station info
+get_station_info()
+
 city_coordinates = {
     "Arnhem": (51.9851, 5.8987),
     "Almere": (52.3508, 5.2645),
@@ -140,7 +207,7 @@ conn.close()
 
 
 def get_3_hourly_forecast():
-    selected_city = random.choice(list(city_coordinates.keys()))
+    selected_city = station(list(city_coordinates.keys()))
     latitude, longitude = city_coordinates[selected_city]
 
     forecast_url = f"https://api.openweathermap.org/data/2.5/forecast?lat={latitude}&lon={longitude}&appid={api_key}"
@@ -176,36 +243,37 @@ def get_3_hourly_forecast():
 
 root = Tk()
 root.geometry("1600x1300")
-root.configure(background='#FFC917')
+root.attributes('-fullscreen', True)
+root.configure(background='#003082')
 
 
-station_bericht_frame = Frame(root, background='#FFFFFF')
-station_bericht_frame.grid(row=0, column=1, padx=20)
+station_bericht_frame = Frame(root, background='#E6E6E9')
+station_bericht_frame.grid(row=0, column=0, padx=450, pady= 20)
 
 
-station_label = Label(station_bericht_frame, text=f"Station: {station}", font=('NS Sans Regular', 20), foreground='#003082', background='#FFFFFF')
-station_label.grid(row=0, column=0, pady=10)
-
-bericht_label = Label(station_bericht_frame, text="Latest Berichten:", font=('NS Sans Regular', 20), foreground='#003082', background='#FFFFFF')
+station_label = Label(station_bericht_frame, text=f"Station: {station}", font=('NS Sans Regular', 20), foreground='#0063D3', background='#E6E6E9')
+station_label.grid(row=0, column=0, pady=0)
+station_label_info = Label(station_bericht_frame, text=f" {get_station_info()}", font=('NS Sans Regular', 20), foreground='#0063D3', background='#E6E6E9')
+station_label_info.grid(row=0, column=0, pady=0)
+bericht_label = Label(station_bericht_frame, text="Latest Messages:", font=('NS Sans Regular', 20), foreground='#0063D3', background='#E6E6E9')
 bericht_label.grid(row=1, column=0, pady=10)
 
 row = 2
 
 for row, bericht_row in enumerate(bericht_rows, start=row):
-    bericht_item = Label(station_bericht_frame, text=bericht_row[0], font=('NS Sans Regular', 14), foreground='#003082', background='#FFFFFF')
-    bericht_item.grid(row=row, column=0, pady=5)
+    bericht_item = Label(station_bericht_frame, text=bericht_row[0], font=('NS Sans Regular', 14), foreground='#0063D3', background='#E6E6E9')
+    bericht_item.grid(row=row, column=0, pady=50)
 
-station_bericht_frame = Frame(root, background='#FFFFFF')
+station_bericht_frame = Frame(root, background='#FFC917')
 station_bericht_frame.grid(row=0, column=0, padx=20, pady=20)
 
 
-weather_frame = Frame(root, background='#FFFFFF')
-weather_frame.grid(row=1, column=0, padx=20, pady=20, sticky="ew")
+weather_frame = Frame(root, background='#FFC917')
+weather_frame.grid(row=1, column=0, padx=3, pady=20, sticky="ew")
 
-weather_label = Label(weather_frame, text="3-Hourly Weather Forecast", font=('NS Sans Regular', 20), foreground='#003082', background='#FFFFFF')
-weather_label.grid(row=0, column=0, pady=10)
-weather_horizontal_frame = Frame(weather_frame, background='#FFFFFF')
-weather_horizontal_frame.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
+
+weather_horizontal_frame = Frame(weather_frame, background='#FFC917')
+weather_horizontal_frame.grid(row=1, column=2, padx=600, pady=10, sticky="ew")
 def display_weather_forecast():
     selected_city = random.choice(list(city_coordinates.keys()))
     latitude, longitude = city_coordinates[selected_city]
@@ -226,7 +294,7 @@ def display_weather_forecast():
 
         original_icon = Image.open(icon_path).convert("RGBA")
 
-        new_image = Image.new("RGBA", original_icon.size, (255, 255, 255, 255))
+        new_image = Image.new("RGBA", original_icon.size, ("#003082"))
 
         new_image.paste(original_icon, (0, 0), original_icon)
 
@@ -239,10 +307,10 @@ def display_weather_forecast():
         time_temp_frame = Frame(weather_horizontal_frame, background='#FFFFFF')
         time_temp_frame.grid(row=1, column=len(weather_horizontal_frame.winfo_children()) - 1, padx=10)
 
-        time_label = Label(time_temp_frame, text=timestamp, font=('NS Sans Regular', 14), foreground='#003082', background='#FFFFFF')
+        time_label = Label(time_temp_frame, text=timestamp, font=('NS Sans Regular', 14), foreground='#0063D3', background='#FFC917')
         time_label.grid(row=0, column=0)
 
-        temp_label = Label(time_temp_frame, text=f"{temperature_celsius:.2f}°C", font=('NS Sans Regular', 14), foreground='#003082', background='#FFFFFF')
+        temp_label = Label(time_temp_frame, text=f"{temperature_celsius:.2f}°C", font=('NS Sans Regular', 14), foreground='#0063D3', background='#FFC917')
         temp_label.grid(row=0, column=1)
 
 display_weather_forecast()
