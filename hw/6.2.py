@@ -1,1 +1,0 @@
-lijst = list(gt.replace('-', ""))
