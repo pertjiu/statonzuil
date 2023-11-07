@@ -11,12 +11,19 @@ sentences = [sentence.strip() for sentence in sentences if sentence.strip()]
 
 result = []
 dbgoedkeuring = []
+
 moderatorname = input('name ')
 moderatoremail = input('email ')
+while moderatorname == '':
+    moderatorname = input('name ')
+while moderatoremail == '' or "@" not in moderatoremail:
+    moderatoremail = input('email ')
+
+
 dbgoedkeuring.append(f"{moderatorname}, {moderatoremail}")
 
 for record in dbgoedkeuring:
-    print(record)
+    pass
 
 conn = psycopg2.connect(
     host="20.77.182.19",
@@ -42,7 +49,7 @@ conn = psycopg2.connect(
             password="FD1ns81g02!!"
         )
 if moderatoremail in email_list:
-    print("Email is valid for moderation.")
+    pass
 else:
     for record in dbgoedkeuring:
         cursor = conn.cursor()
@@ -72,9 +79,9 @@ email_to_moderator_id = {email: moderator_id for moderator_id, email in rows}
 
 if moderatoremail in email_to_moderator_id:
     moderator_id = email_to_moderator_id[moderatoremail]
-    print(f"Email is valid for moderation. Moderator ID: {moderator_id}")
+    print(f"your Moderator ID is: {moderator_id}")
 else:
-    print("Email is not found in the database.")
+    pass
 
 conn.close()
 

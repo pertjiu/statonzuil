@@ -11,7 +11,7 @@ api_key = "e8c04b8fe28cf2051ef9eb217735e859"
 
 
 
-# Function to get station info
+
 def get_station_info():
     with open("stations.txt", "r") as file:
         content = file.read()
@@ -73,7 +73,7 @@ def get_station_info():
 
     conn.close()
 
-# At the beginning of your program, to initialize the station info
+
 get_station_info()
 
 city_coordinates = {
@@ -187,6 +187,7 @@ cursor = conn.cursor()
 
 query = """SELECT bericht
            FROM bericht
+           where goedkeuring = True
            ORDER BY bericht_id DESC
            LIMIT 5;"""
 cursor.execute(query)
@@ -320,5 +321,5 @@ root.grid_columnconfigure(0, weight=1)
 
 root.mainloop()
 
-#netter maken nog
+
 

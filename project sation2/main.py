@@ -12,7 +12,7 @@ while True:
         time.sleep(1)
         name = str(input(f"what is your name? if you give us the name N/n than it will become anonymous "))
     nee = ('n', 'N')
-    # user = [name]
+
     if name in nee:
         name = "anonymous"
         time.sleep(1)
@@ -43,7 +43,6 @@ while True:
     cdt = str(now.strftime("%D %T"))
     datum = str(now.strftime("%D"))
     tijd = str(now.strftime("%T"))
-    # print(cdt)
 
     infile = open("stations.txt", "r")
     content = infile.read()
