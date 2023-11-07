@@ -1,6 +1,14 @@
 import datetime
 import psycopg2
 
+"""hier ord er gecheckt naar het bericht of het goedgekeurd mag worden. eerst word het txt bestand weer geopend
+ en wordt de informatie gesplit en gestript zodat het makkelijker word om uittelezen en of te bewerken. dan wordt er 
+ een funcite gedaan die vraagt naar de moderator naam en email waarbij eisen zijn en word er direct gecheckt in de database
+ of deze email al bestaat bestaat hij niet word er een nieuwe id toegekent bestaat hij al wel word de oude opgehaald
+ dan word het bericht verder uitgelezen en een voor een gedisplayed waarbij de moderator y/n kan type voor goedkeuring
+ en als alle berichten zijn geweest word het weggeschreven naar de database en het txt berstand geleegt"""
+
+
 
 with open('gev stationzeill.txt', 'r') as file:
     text = file.read()

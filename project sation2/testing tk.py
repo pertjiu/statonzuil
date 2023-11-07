@@ -6,6 +6,10 @@ from tkinter import *
 import random
 from PIL import Image, ImageTk
 
+"""hier worden de gegevens vanuit de database opgehaald met specieken eisen en veranderd naar values voor in het 
+ Tkinter scherm waarbij de def functes al erg aangeven wat waar gebeurd"""
+
+
 icon_directory = r"C:\Users\dunca\PycharmProjects\final-assignment\icons"
 api_key = "e8c04b8fe28cf2051ef9eb217735e859"
 

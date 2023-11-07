@@ -2,7 +2,9 @@ import time
 import datetime
 import random
 
-
+"""deze while true loop is wat je ziet in je stationscherm de command consel dan eerst word een checkvraaggesteld als die
+goed gekeurt word dan gaat het programma verder met het vragen naar een naam en een bericht als alles voldaan is word de 
+infromatie weggeschreven naar een text bestand met datum en tijd plus een random station er bij en begint het programma opnieuw"""
 while True:
     message = str(input("would you like to leave a message. if so please type yes "))
     if message != str('yes'):
